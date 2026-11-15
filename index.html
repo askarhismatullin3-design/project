@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ExamHub — готовься в своём темпе</title>
+<link rel="stylesheet" href="/static/style.css"><script defer src="/static/app.js"></script>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+<a class="brand" href="/">Exam<span>HUB</span><small>Твоя подготовка к экзаменам</small></a>
+<nav aria-label="Разделы">
+<button class="nav active" data-page="home">Обзор</button>
+<button class="nav" data-page="practice">Тренировка</button>
+<button class="nav" data-page="stats">Статистика</button>
+<button class="nav" data-page="handbook">Шпаргалки</button>
+</nav>
+<div class="sidebar-bottom"><span class="status-dot"></span> Прогресс сохраняется
+<p>В этом браузере. Не удаляй cookie, чтобы сохранить доступ к истории.</p></div>
+</aside>
+<main>
+<header class="topbar"><div><span class="muted">Рабочая тетрадь</span><h1 id="page-title">Обзор подготовки</h1></div><span class="badge" id="gemini-status">Проверяем подключение ИИ…</span></header>
+<div id="notice" role="status" aria-live="polite" hidden></div>
+<section class="selection" aria-label="Настройки подготовки">
+<label>Экзамен<select id="exam"><option>ОГЭ</option><option>ЕГЭ</option></select></label>
+<label>Предмет<select id="subject"></select></label>
+<label>Класс<select id="grade"><option>5</option><option>6</option><option>7</option><option>8</option><option selected>9</option><option>10</option><option>11</option></select></label>
+</section>
+<section id="home" class="page">
+<div class="intro"><div><p class="muted">От первой попытки до уверенного ответа</p><h2>Разбирайся.<br>Пробуй. Получится.</h2><p>Задания, подсказки и теория — в одной тетради. Выбирай предмет и продолжай в своём темпе.</p><button class="primary" id="home-start">Начать тренировку</button></div>
+<div class="countdown"><span>До твоего экзамена</span><strong id="countdown">Выбери дату</strong><label>Дата экзамена<input id="exam-date" type="date"></label><button id="save-date">Сохранить дату</button></div></div>
+<div class="overview"><article><h3>Учебный набор</h3><p>Задания из ExamHub по математике и демонстрационные примеры по другим предметам. Набор для ОГЭ рассчитан на 9 класс, для ЕГЭ — на 11.</p></article><article><h3>Новые задания с ИИ</h3><p>Генерируй тренировку по своему классу и теме. ИИ может ошибаться: проверяй спорные решения. Это не официальный банк ФИПИ.</p><button id="go-generator">Выбрать тему</button></article></div>
+</section>
+<section id="practice" class="page" hidden>
+<div class="practice-setup"><div><h2>С чего начнём?</h2><p class="muted">Используй сохранённые задания или создай пять новых.</p></div><button class="primary" id="start">Открыть задания</button><button id="repeat">Работа над ошибками</button></div>
+<details id="generator"><summary id="generator-title">Создать задания с ИИ</summary>
+<div class="generator-fields"><label>Тема<input id="topic" maxlength="120" list="topics" placeholder="Например: квадратные уравнения"><datalist id="topics"></datalist></label>
+<label>Уровень<select id="level"><option>Простой</option><option selected>Обычный</option><option>Сложный</option><option>Базовая</option><option>Профильная</option></select></label>
+<button class="primary" id="generate">Создать 5 заданий</button></div>
+<p class="muted">«Базовая» и «Профильная» — для математики ЕГЭ. Задания содержат краткий ответ; сочинения, устная часть и задания с аудио здесь не проверяются.</p>
+</details>
+<div id="test" hidden>
+<div class="test-heading"><h2 id="test-name">Тренировка</h2><span id="progress" class="muted"></span></div>
+<div class="test-layout"><div id="numbers" aria-label="Номера заданий"></div><article class="question-area">
+<p class="muted" id="task-source"></p><h3 id="task-topic"></h3><p id="question" class="question"></p>
+<form id="answer-form"><label for="answer">Твой ответ</label><div class="answer-row"><input id="answer" maxlength="300" autocomplete="off" required placeholder="Введи краткий ответ"><button class="primary" id="check" type="submit">Проверить</button></div></form>
+<p id="feedback" aria-live="polite"></p><div id="hint" class="hint" hidden></div>
+<button id="next">Следующая задача</button>
+<button id="finish" class="primary" type="button" hidden>Завершить и в главное меню</button>
+</article></div></div>
+</section>
+<section id="stats" class="page" hidden>
+<div class="section-heading"><div><h2>Каждая попытка — шаг вперёд</h2><p class="muted">Графики по выбранному предмету и классу. Ошибки до подсказки тоже учитываются.</p></div><button id="stats-repeat">Повторить ошибки</button></div>
+<div id="charts" class="charts"></div>
+</section>
+<section id="handbook" class="page" hidden>
+<h2>Коротко о главном</h2><p class="muted">Выбери тему слева — прочитай теорию справа.</p>
+<label>Найти тему или правило<input id="search" type="search" placeholder="Поиск по шпаргалкам"></label>
+<div class="handbook-layout"><div id="sheet-list" aria-label="Темы шпаргалок"></div><article id="sheet-text"><p class="muted">Выбери тему.</p></article></div>
+</section>
+<footer>ExamHub · твоя подготовка к экзаменам. Краткие задания для самостоятельной подготовки.</footer>
+</main></div>
+</body></html>
